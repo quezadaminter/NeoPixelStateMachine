@@ -46,7 +46,7 @@ class NeoPixelStateMachine
 
    uint32_t Update();
 
-   static uint8_t limit(uint8_t Min, uint8_t val1, uint8_t val2, uint8_t Max);
+   static uint8_t limit(uint8_t Min, uint8_t val1, int val2, uint8_t Max);
    static uint32_t Color(uint8_t r, uint8_t g, uint8_t b)
    {
       return (((uint32_t)r << 16) | ((uint32_t)g <<  8) | b);
