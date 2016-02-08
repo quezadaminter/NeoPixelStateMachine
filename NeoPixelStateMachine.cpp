@@ -1,8 +1,13 @@
 #include "NeoPixelStateMachine.h"
 
 #ifndef round
-#define round(x)     ((x)>=0?(long)((x)+0.5):(long)((x)-0.5))
+#define round(x) ((x)>=0?(long)((x)+0.5):(long)((x)-0.5))
 #endif
+
+// Rounds the integer division of n / d the way round(x) does
+// except it does not use floating point math.
+// Borrowed from here: http://stackoverflow.com/questions/8136974/c-functions-for-integer-division-with-well-defined-rounding-strategy/33790603#33790603
+#define div_round(n, d) ((2*n - d + 2*(true&&(n<0^d>0))*d))
 
 void NeoPixelStateMachine::Steady(uint32_t color)
 {
@@ -26,9 +31,9 @@ void NeoPixelStateMachine::Fade(uint16_t count, uint16_t duration, uint32_t colo
    uint8_t r1, g1, b1, r2, g2, b2;
    getRGB(colorFrom, r1, g1, b1);
    getRGB(colorTo, r2, g2, b2);
-   mStepR = round((1.f * (r2 - r1)) / mSteps);
-   mStepG = round((1.f * (g2 - g1)) / mSteps);
-   mStepB = round((1.f * (b2 - b1)) / mSteps);
+   mStepR = div_round((r2 - r1) / mSteps); //round((1.f * (r2 - r1)) / mSteps);
+   mStepG = div_round((g2 - g1) / mSteps); //round((1.f * (g2 - g1)) / mSteps);
+   mStepB = div_round((b2 - b1) / mSteps); //round((1.f * (b2 - b1)) / mSteps);
 }
 
 void NeoPixelStateMachine::Fade(uint16_t count, Fader *colorSequence[], uint8_t len)
@@ -150,6 +155,6 @@ uint32_t NeoPixelStateMachine::updateFade()
 
 uint32_t NeoPixelStateMachine::updateFadeSeq()
 {
-   // COMPLETE implementation!!
+   // TODO: COMPLETE implementation!!
    return(0x00000000);
 }
