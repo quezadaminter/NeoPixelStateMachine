@@ -2,6 +2,10 @@
 #define _NeoPixelStateMachine
 #include <avr/sfr_defs.h>
 
+
+/**
+* Controls the transition properties of one color to another.
+*/
 class Fader
 {
    public:
@@ -14,15 +18,27 @@ class Fader
       uint16_t steps;
 };
 
+/**
+* The state machine tracks the status of the LED.
+* It also provides an interface to update the state.
+*/
 class NeoPixelStateMachine
 {
    public:
       static const uint16_t DT = ((1.0 / 64.0) * 1000000);
       typedef enum { STEADY, FLASH, FADE, FADE_SEQ } STATE_T;
-      NeoPixelStateMachine() ://, uint8_t r = 0, uint8_t g = 0, uint8_t b = 0, STATE_T state = STEADY):
-         //mIndex(index), mR(r), mG(g), mB(0), mState(state),
+      NeoPixelStateMachine() :
          mState(STEADY), mPastState(STEADY)
       {}
+   /**
+     * Changes the color of the pixel by alternating between two
+     * colors.
+     * @param count Number of times to repeat the pattern.
+     * @param timeOn The time in ms that the flash should remain on.
+     * @param timeOff The time in ms that the flash should remain off.
+     * @param colorOn The color to use in the On condition.
+     * @param colorOff The color to use in the OFF condition.
+     */    
    void Flash(uint16_t count, uint16_t timeOn, uint16_t timeOff, uint32_t colorOn, uint32_t colorOff);
    void Fade(uint16_t count, uint16_t rate, uint32_t colorFrom, uint32_t colorTo);
    void Fade(uint16_t count, Fader *colorSequence[], uint8_t len);
