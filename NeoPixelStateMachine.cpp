@@ -31,9 +31,12 @@ void NeoPixelStateMachine::Fade(uint16_t count, uint16_t duration, uint32_t colo
    uint8_t r1, g1, b1, r2, g2, b2;
    getRGB(colorFrom, r1, g1, b1);
    getRGB(colorTo, r2, g2, b2);
-   mStepR = div_round((r2 - r1), mSteps); //round((1.f * (r2 - r1)) / mSteps);
-   mStepG = div_round((g2 - g1), mSteps); //round((1.f * (g2 - g1)) / mSteps);
-   mStepB = div_round((b2 - b1), mSteps); //round((1.f * (b2 - b1)) / mSteps);
+   mStepR = round((1.f * (r2 - r1)) / mSteps);
+   mStepG = round((1.f * (g2 - g1)) / mSteps);
+   mStepB = round((1.f * (b2 - b1)) / mSteps);
+   //mStepR = div_round((r2 - r1), mSteps);
+   //mStepG = div_round((g2 - g1), mSteps);
+   //mStepB = div_round((b2 - b1), mSteps);
 }
 
 void NeoPixelStateMachine::Fade(uint16_t count, Fader *colorSequence[], uint8_t len)
