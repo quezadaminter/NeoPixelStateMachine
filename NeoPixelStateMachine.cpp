@@ -7,7 +7,7 @@
 // Rounds the integer division of n / d the way round(x) does
 // except it does not use floating point math.
 // Borrowed from here: http://stackoverflow.com/questions/8136974/c-functions-for-integer-division-with-well-defined-rounding-strategy/33790603#33790603
-#define div_round(n, d) ((2*n - d + 2*(true&&(n<0^d>0))*d))
+#define div_round(n, d) ((2 * n - d + 2 * (true && (n < 0 ^d > 0)) * d))
 
 void NeoPixelStateMachine::Steady(uint32_t color)
 {
@@ -31,9 +31,9 @@ void NeoPixelStateMachine::Fade(uint16_t count, uint16_t duration, uint32_t colo
    uint8_t r1, g1, b1, r2, g2, b2;
    getRGB(colorFrom, r1, g1, b1);
    getRGB(colorTo, r2, g2, b2);
-   mStepR = div_round((r2 - r1) / mSteps); //round((1.f * (r2 - r1)) / mSteps);
-   mStepG = div_round((g2 - g1) / mSteps); //round((1.f * (g2 - g1)) / mSteps);
-   mStepB = div_round((b2 - b1) / mSteps); //round((1.f * (b2 - b1)) / mSteps);
+   mStepR = div_round((r2 - r1), mSteps); //round((1.f * (r2 - r1)) / mSteps);
+   mStepG = div_round((g2 - g1), mSteps); //round((1.f * (g2 - g1)) / mSteps);
+   mStepB = div_round((b2 - b1), mSteps); //round((1.f * (b2 - b1)) / mSteps);
 }
 
 void NeoPixelStateMachine::Fade(uint16_t count, Fader *colorSequence[], uint8_t len)
@@ -104,9 +104,9 @@ uint32_t NeoPixelStateMachine::updateFlash()
 
 // Limit the increment or decrement of a variable
 // from overflowing an unsigned integer.
-uint8_t NeoPixelStateMachine::limit(uint8_t Min, uint8_t val1, float val2, uint8_t Max)
+uint8_t NeoPixelStateMachine::limit(uint8_t Min, uint8_t val1, int val2, uint8_t Max)
 {
-   if(val2 < 0.f && val1 + val2 < Min)
+   if(val2 < 0 && val1 + val2 < Min)
    {
       return(Min);
    }
