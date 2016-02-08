@@ -28,7 +28,7 @@ class NeoPixelStateMachine
       static const uint16_t DT = ((1.0 / 64.0) * 1000000);
       typedef enum { STEADY, FLASH, FADE, FADE_SEQ } STATE_T;
       NeoPixelStateMachine() :
-         mState(STEADY), mPastState(STEADY)
+         mState(STEADY), mPastState(STEADY), mFaderList(NULL)
       {}
    /**
      * Changes the color of the pixel by alternating between two
@@ -98,9 +98,9 @@ class NeoPixelStateMachine
       uint16_t mFramesOff;
       uint16_t mCount;
       uint16_t mSteps;
-      uint8_t mStepR;
-      uint8_t mStepG;
-      uint8_t mStepB;
+      int      mStepR;
+      int      mStepG;
+      int      mStepB;
       STATE_T mState;
       STATE_T mPastState;
       uint32_t mFrame;
