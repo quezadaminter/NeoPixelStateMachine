@@ -46,7 +46,7 @@ class NeoPixelStateMachine
 
    uint32_t Update();
 
-   static uint8_t limit(uint8_t Min, uint8_t val1, float val2, uint8_t Max);
+   static uint8_t limit(uint8_t Min, uint8_t val1, uint8_t val2, uint8_t Max);
    static uint32_t Color(uint8_t r, uint8_t g, uint8_t b)
    {
       return (((uint32_t)r << 16) | ((uint32_t)g <<  8) | b);
@@ -98,9 +98,9 @@ class NeoPixelStateMachine
       uint16_t mFramesOff;
       uint16_t mCount;
       uint16_t mSteps;
-      float mStepR;
-      float mStepG;
-      float mStepB;
+      uint8_t mStepR;
+      uint8_t mStepG;
+      uint8_t mStepB;
       STATE_T mState;
       STATE_T mPastState;
       uint32_t mFrame;
